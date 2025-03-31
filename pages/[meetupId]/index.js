@@ -1,14 +1,53 @@
-import MeetupDetail from "@/components/meetups/MeetupDetail";
+import MeetupDetail from '../../components/meetups/MeetupDetail';
 
-function MeetupDetailsPage() {
-    return ( 
-        <MeetupDetail 
-        title='A first meetup'
-        image='https://media.istockphoto.com/id/480807998/photo/ramkund-at-panchavati-in-nasik-india.jpg?s=1024x1024&w=is&k=20&c=jh8TYI8JnKDtRrOtYmTZeW4AKz27aaq_7yBWZgXZjJg='
-        address='test address add nashik'
-        description='lorem lipsum lorem lipsum lipsum lorem lipsum lipsum lorem lipsum lipsum lorem lipsum'
-        />
-     );
+function MeetupDetails() {
+  return (
+    <MeetupDetail
+      image='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg'
+      title='First Meetup'
+      address='Some Street 5, Some City'
+      description='This is a first meetup'
+    />
+  );
 }
 
-export default MeetupDetailsPage;
+export async function getStaticPaths() {
+  return {
+    fallback: false,
+    paths: [
+      {
+        params: {
+          meetupId: 'm1',
+        },
+      },
+      {
+        params: {
+          meetupId: 'm2',
+        },
+      },
+    ],
+  };
+}
+
+export async function getStaticProps(context) {
+  // fetch data for a single meetup
+
+  const meetupId = context.params.meetupId;
+
+  console.log(meetupId);
+
+  return {
+    props: {
+      meetupData: {
+        image:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg',
+        id: meetupId,
+        title: 'First Meetup',
+        address: 'Some Street 5, Some City',
+        description: 'This is a first meetup',
+      },
+    },
+  };
+}
+
+export default MeetupDetails;
