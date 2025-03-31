@@ -20,10 +20,21 @@ const DUMMY_MEETUP= [{
     description: 'lorem lipsum lorem lipsum lipsum lorem lipsum lipsum lorem lipsum lipsum lorem lipsum'
 },]
 
-function HomePage() {
+function HomePage(props) {
     return ( 
-        <MeetupList meetups={DUMMY_MEETUP}/>
+        <MeetupList meetups={props.meetups}/>
      );
+}
+
+export function getServerSideProps(context){
+    const req = context.req;
+    const res = context.res;
+    return{
+        props: {
+            meetups: DUMMY_MEETUP
+        },
+        revalidate: 1
+    }
 }
 
 export default HomePage;
